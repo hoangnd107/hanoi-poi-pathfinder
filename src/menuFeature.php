@@ -1,6 +1,5 @@
-<?php include 'src/baseURL.php'; ?>
-<link rel="stylesheet" href="<?= $baseURL ?>/css/menuFeature.css">
-<script src="<?= $baseURL ?>/js/menuFeature.js"></script>
+<link rel="stylesheet" href="<?= BASE_ASSETS_URL ?>/css/menuFeature.css">
+<script src="<?= BASE_ASSETS_URL ?>/js/menuFeature.js"></script>
 <div class="menuFeature_toggle" onclick="toggleMenuFeature()">
     ☰
 </div>

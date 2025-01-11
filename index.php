@@ -2,18 +2,17 @@
 <html lang="en">
 
 <head>
+    <?php include 'config/constants.php' ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 1 - WebGIS</title>
-    <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- đường dẫn project -->
-    <?php include 'src/baseURL.php'; ?>
-    <!--script và css index-->
-    <script src="<?= $baseURL ?>/js/index.js"></script>
-    <link rel="stylesheet" href="<?= $baseURL ?>/css/index.css">
+    <script src="<?= OPENLAYERS_JS_URL ?>" type="text/javascript"></script>
+    <script src="<?= JQUERY_JS_URL ?>"></script>
+    <link rel="stylesheet" href="<?= OPENLAYERS_CSS_URL ?>" type="text/css">
+    <script src="<?= AJAX_GGAPIS_JS_URL ?>"></script>
+
+    <script src="<?= BASE_ASSETS_URL ?>/js/index.js"></script>
+    <link rel="stylesheet" href="<?= BASE_ASSETS_URL ?>/css/index.css">
 </head>
 
 <body onLoad="initMap();">
