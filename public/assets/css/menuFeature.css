@@ -1,0 +1,79 @@
+.menuFeature_toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #f4f4f4;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 999;
+}
+.sidebar.open {
+    right: 0;
+}
+.sidebar_content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.sidebar_content select,
+.sidebar_content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #666;
+}
+.sidebar_content select:focus,
+.sidebar_content input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+.sidebar_content select option[disabled] {
+    color: #aaa;
+}
+.sidebar_buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.reset-btn,
+.search-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.reset-btn {
+    background-color: #f44336;
+    color: white;
+}
+.search-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+.map{
+    transition: margin-right 0.3s ease;
+}
+.map.shift{
+    margin-right: 300px;
+}

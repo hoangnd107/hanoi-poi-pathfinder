@@ -1,30 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 1 - WebGIS</title>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- đường dẫn project -->
+    <?php include 'src/baseURL.php'; ?>
+    <!--script và css index-->
+    <script src="<?= $baseURL ?>/js/index.js"></script>
+    <link rel="stylesheet" href="<?= $baseURL ?>/css/index.css">
 </head>
-<body>
-    <h4>Hello World</h4>
-    <button id='btn-test'>TEST</button>
-    <script>
-        $('#btn-test').click(function() {
-            $.ajax({
-                url: 'api/index.php',
-                type: 'POST',
-                data: {
-                    functionName: 'test',
-                },
-                success: function(response) {
-                    console.log('Response:', response);
-                },
-                error: function(xhr, status, error) {
-                    alert('Error: ' + error);
-                }
-            });
-        });
-    </script>
+
+<body onLoad="initMap();">
+    <div class="map" id="map"></div>
+    <?php include 'src/menuStart.php'; ?>
+    <?php include 'src/menuFeature.php'; ?>
 </body>
+
 </html>

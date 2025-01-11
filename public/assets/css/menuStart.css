@@ -1,0 +1,76 @@
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+.menuStart_content{
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 70px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.menuStart_content.show{
+    display: block;
+    animation: slideInRight 0.3s ease forwards;
+}
+.menuStart_content.hide{
+    animation: slideOutRight 0.3s ease forwards;
+    opacity: 0;
+    transform: translateX(-20px);
+    pointer-events: none;
+}
+.menuStart_container{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+.menuStart_button{
+    width: 60px;
+    height: 60px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.menuStart_button:hover{
+    background-color: #0056b3;
+}
+.menuStart_content button{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+}
+.menuStart_content button:hover{
+    background-color: #f1f1f1;
+}
