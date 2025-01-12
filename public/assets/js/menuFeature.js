@@ -9,6 +9,26 @@ function toggleMenuFeature() {
         map.classList.add('shift');
     }
 }
+function loadDistrictOptions() {
+    $.ajax({
+        url: "http://localhost/gis/gis-exam-group-1/api/gis/district/getNameByDistrict.php",
+        type: "GET",
+        success: function (data) {
+            const districts = data;
+            const districtSelect = document.querySelector('select#districtSelect');
+            districtSelect.innerHTML = '<option value="" disabled selected>Chọn Quận/Huyện</option>';
+            districts.forEach((district) => {
+                const option = document.createElement('option');
+                option.value = district.name_2;
+                option.textContent = district.name_2;
+                districtSelect.appendChild(option);
+            });
+        },
+        error: function () {
+            alert("Không thể tải danh sách vùng!");
+        },
+    });
+}
 document.addEventListener('DOMContentLoaded', () => {
     const resetButton = document.querySelector('.reset_btn');
     const sidebar = document.querySelector('.sidebar_content');
@@ -27,5 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultText.textContent = 'Kết quả tìm được: ';
             }
         });
-    }
+    };
+    loadDistrictOptions();
 });

@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="<?= BASE_ASSETS_URL ?>/css/menuFeature.css">
-<script src="<?= BASE_ASSETS_URL ?>/js/menuFeature.js"></script>
+<link rel="stylesheet" href="public/assets/css/menuFeature.css">
+<script src="public/assets/js/menuFeature.js"></script>
 <div class="menuFeature_toggle" onclick="toggleMenuFeature()">
     ☰
 </div>
@@ -17,16 +17,13 @@
             <option>Item 2</option>
             <option>Item 3</option>
         </select>
-        <select>
-            <option value="" disabled selected>Chọn vùng</option>
-            <option>Item 1</option>
-            <option>Item 2</option>
-            <option>Item 3</option>
+        <select id="districtSelect">
+            <option value="" disabled selected>Chọn Quận/Huyện</option>
         </select>
         <input type="number" placeholder="Khoảng cách" />
         <div class="sidebar_buttons">
-            <button class="reset_btn">Reset</button>
-            <button class="search_btn" onclick="alert('Chức năng đang phát triển')">Tìm</button>
+            <button class="reset_btn" id="">Reset</button>
+            <button class="search_btn" id="" onclick="alert('Chức năng đang phát triển')">Tìm</button>
         </div>
         <p>Kết quả tìm được: </p>
     </div>

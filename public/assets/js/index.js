@@ -1,3 +1,4 @@
+//Hiệu chỉnh map
 var format = "image/png";
 var map;
 var minX = 105.28446960449219;
@@ -9,6 +10,12 @@ var cenY = (minY + maxY) / 2 + 0.03;
 var mapLat = cenY;
 var mapLng = cenX;
 var mapDefaultZoom = 15;
+//Biến toàn cục
+var currentX = null;
+var currentY = null;
+var targetX = null;
+var targetY = null;
+var targetGeom = null;
 function initMap() {
     var layerBG = new ol.layer.Tile({
         source: new ol.source.OSM(),
