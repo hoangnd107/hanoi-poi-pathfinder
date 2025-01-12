@@ -1,30 +1,30 @@
 <link rel="stylesheet" href="public/assets/css/menuFeature.css">
 <script src="public/assets/js/menuFeature.js"></script>
-<div class="menuFeature_toggle" onclick="toggleMenuFeature()">
+<div class="btn-toggle-sidebar" id="btn-toggle-sidebar" onclick="toggleMenuFeature()">
     ☰
 </div>
 <div class="sidebar" id="sidebar">
-    <div class="sidebar_content">
-        <select>
+    <div class="sidebar-content" id="sidebar-content">
+        <select class="select-lv1" id="select-lv1">
             <option value="" disabled selected>Chọn loại 1</option>
             <option>Item 1</option>
             <option>Item 2</option>
             <option>Item 3</option>
         </select>
-        <select>
+        <select class="select-lv2" id="select-lv2">
             <option value="" disabled selected>Chọn loại 2</option>
             <option>Item 1</option>
             <option>Item 2</option>
             <option>Item 3</option>
         </select>
-        <select id="districtSelect">
+        <select class="select-district" id="select-district">
             <option value="" disabled selected>Chọn Quận/Huyện</option>
         </select>
-        <input type="number" placeholder="Khoảng cách" />
-        <div class="sidebar_buttons">
-            <button class="reset_btn" id="">Reset</button>
-            <button class="search_btn" id="" onclick="alert('Chức năng đang phát triển')">Tìm</button>
+        <input class="select-radius" id="select-radius" type="number" placeholder="Khoảng cách" />
+        <div class="sidebar-btns" id="sidebar-btns">
+            <button class="btn-reset" id="btn-reset">Reset</button>
+            <button class="btn-search" id="btn-search" onclick="alert('Chức năng đang phát triển')">Tìm</button>
         </div>
-        <p>Kết quả tìm được: </p>
+        <p class="result-text" id="result-text">Kết quả tìm được: </p>
     </div>
 </div>

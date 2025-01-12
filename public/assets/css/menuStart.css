@@ -18,7 +18,7 @@
         transform: translateX(-20px);
     }
 }
-.menuStart_content{
+.add-location-content{
     display: none;
     position: absolute;
     bottom: 0;
@@ -31,23 +31,23 @@
     transform: translateX(-20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.menuStart_content.show{
+.add-location-content.show{
     display: block;
     animation: slideInRight 0.3s ease forwards;
 }
-.menuStart_content.hide{
+.add-location-content.hide{
     animation: slideOutRight 0.3s ease forwards;
     opacity: 0;
     transform: translateX(-20px);
     pointer-events: none;
 }
-.menuStart_container{
+.add-location-container{
     position: fixed;
     bottom: 20px;
     left: 20px;
     z-index: 1000;
 }
-.menuStart_button{
+.btn-add-location{
     width: 60px;
     height: 60px;
     background-color: #007BFF;
@@ -59,10 +59,10 @@
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-.menuStart_button:hover{
+.btn-add-location:hover{
     background-color: #0056b3;
 }
-.menuStart_content button{
+.add-location-content button{
     display: block;
     width: 100%;
     padding: 10px;
@@ -71,6 +71,6 @@
     text-align: left;
     cursor: pointer;
 }
-.menuStart_content button:hover{
+.add-location-content button:hover{
     background-color: #f1f1f1;
 }
