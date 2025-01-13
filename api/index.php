@@ -1,9 +1,9 @@
 <?php
 require_once __DIR__ . '/../helpers/functions.php';
 require_once __DIR__ . '/gis/roads/getGeom.php';
-require_once __DIR__ . '/gis/district/getGeomByDistrict.php';
 require_once __DIR__ . '/gis/district/getNameByDistrict.php';
 require_once __DIR__ . '/gis/radius/getGeomByRadius.php';
+require_once __DIR__ . '/gis/points/getAllPoints.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['functionName'])) {
@@ -36,6 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case 'test':
             $aResult = getGeom();
+            break;
+        case 'getAllPoints':
+            $aResult = getAllPoints();
             break;
         default:
             header('HTTP/1.1 400 Bad Request');

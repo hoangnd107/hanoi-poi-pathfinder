@@ -4,8 +4,8 @@
     <button class="btn-add-location" id="btn-add-location" onclick="toggleMenuStart()">+</button>
     <div class="add-location-content" id="add-location-content">
         <button class="btn-current-location" id="btn-current-location"
-            onclick="alert('Chức năng đang phát triển')">Lấy vị trí hiện tại</button>
+            onclick="startSelectLocation()">Lấy vị trí hiện tại</button>
         <button class="btn-select-location" id="btn-select-location"
-            onclick="alert('Chức năng đang phát triển')">Chọn vị trí trên map</button>
+            onclick="showCurrentLocation()">Chọn vị trí trên map</button>
     </div>
 </div>
