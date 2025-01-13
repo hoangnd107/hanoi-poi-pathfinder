@@ -127,11 +127,11 @@ function handleSearch() {
     clearAllLayers();
     if (selectedDistrict && radiusValue) {
         drawDistrictBoundary(selectedDistrict);
-        drawRadiusCircle();
+        drawRadiusCircle(105.824163, 21.006762, radiusValue);
     } else if (selectedDistrict) {
         drawDistrictBoundary(selectedDistrict);
     } else if (radiusValue) {
-        drawRadiusCircle();
+        drawRadiusCircle(105.824163, 21.006762, radiusValue);
     } else {
         alert('Vui lòng chọn Quận/Huyện hoặc nhập Bán kính hoặc cả hai!');
     }
