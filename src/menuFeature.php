@@ -23,7 +23,7 @@
         <input type="number" placeholder="Khoảng cách" />
         <div class="sidebar_buttons">
             <button class="reset_btn" id="">Reset</button>
-            <button class="search_btn" id="" onclick="alert('Chức năng đang phát triển')">Tìm</button>
+            <button class="search_btn" id="" onclick="showAllPoints()">Tìm</button>
         </div>
         <p>Kết quả tìm được: </p>
     </div>

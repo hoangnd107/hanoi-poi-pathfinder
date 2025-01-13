@@ -1,4 +1,3 @@
-//Hiệu chỉnh map
 var format = "image/png";
 var map;
 var minX = 105.28446960449219;
@@ -12,21 +11,14 @@ var mapLng = cenX;
 var mapDefaultZoom = 15;
 
 //Biến toàn cục
+var currentX = null;
+var currentY = null;
 var targetX = null;
 var targetY = null;
 var targetGeom = null;
 
-
-// Add current location variables
-var currentX = null;
-var currentY = null;
-var currentLocationLayer;
-
-// Add these variables at the top with other variables
 var isSelectingLocation = false;
-var selectedLocationLayer;
-
-var selectionMode = null; // 'current' or 'custom' or null
+var locationLayer;
 
 function initMap() {
     var layerBG = new ol.layer.Tile({
@@ -36,122 +28,76 @@ function initMap() {
         center: ol.proj.fromLonLat([mapLng, mapLat]),
         zoom: mapDefaultZoom,
     });
+
+    // Single vector layer for location
+    locationLayer = new ol.layer.Vector({
+        source: new ol.source.Vector()
+    });
+
     map = new ol.Map({
-      target: "map",
-      layers: [layerBG, currentLocationLayer, selectedLocationLayer],
-      view: viewMap,
+        target: "map",
+        layers: [layerBG, locationLayer],
+        view: viewMap,
     });
 
-    currentLocationLayer = new ol.layer.Vector({
-        source: new ol.source.Vector()
-    });
-
-    selectedLocationLayer = new ol.layer.Vector({
-        source: new ol.source.Vector()
-    });
-
-    // Add click handler for map
+    // Map click handler
     map.on('click', function(evt) {
         if (isSelectingLocation) {
             const coords = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
-            setSelectedLocation(coords[0], coords[1]);
+            setLocation(coords[0], coords[1]);
             isSelectingLocation = false;
             map.getViewport().style.cursor = 'default';
         }
     });
 }
 
-function showCurrentLocation() {
-    if (selectionMode === 'current') {
-        // Deactivate if already active
-        selectionMode = null;
-        currentLocationLayer.getSource().clear();
-        return;
-    }
+function highLightGeoJsonObj(paObjJson) {
+    var vectorSource = new ol.source.Vector({
+        features: new ol.format.GeoJSON().readFeatures(paObjJson, {
+        dataProjection: "EPSG:4326",
+        featureProjection: "EPSG:3857",
+        }),
+    });
 
-    // Clear other mode
-    if (selectionMode === 'custom') {
-        selectedLocationLayer.getSource().clear();
-        isSelectingLocation = false;
-        map.getViewport().style.cursor = 'default';
-    }
+    // Áp dụng style icon cho tất cả các điểm
+    var stylePoint = new ol.style.Style({
+        image: new ol.style.Icon({
+        anchor: [0.5, 0.5],
+        anchorXUnits: "fraction",
+        anchorYUnits: "fraction",
+        src: "./public/assets/icons/destination.svg",
+        }),
+    });
 
-    selectionMode = 'current';
-    
-    if (!navigator.geolocation) {
-        alert('Geolocation is not supported by your browser');
-        return;
-    }
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: stylePoint,
+    });
 
-    navigator.geolocation.getCurrentPosition(function(position) {
-        currentX = position.coords.longitude;
-        currentY = position.coords.latitude;
-        
-        const coords = [currentX, currentY];
-        
-        const feature = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat(coords))
-        });
+    map.addLayer(vectorLayer);
+}
 
-        const iconStyle = new ol.style.Style({
-          image: new ol.style.Icon({
-            anchor: [0.5, 1],
-            src: "../icons/currentLocation.svg",
-            scale: 1.5,
-          }),
-        });
-
-        feature.setStyle(iconStyle);
-
-        // Clear previous location and add new one
-        currentLocationLayer.getSource().clear();
-        currentLocationLayer.getSource().addFeature(feature);
-
-        // Center map on location
-        map.getView().animate({
-            center: ol.proj.fromLonLat(coords),
-            zoom: 16,
-            // duration: 1000
-        });
-    }, function() {
-        alert('Unable to get your location');
+function showAllPoints() {
+    $.ajax({
+        url: "../../../api/index.php",
+        type: "POST",
+        data: { functionname: "getAllPoints" },
+        success: function (result) {
+        if (result !== "null") {
+            console.log(result);
+            var objJson = JSON.parse(result);
+            highLightGeoJsonObj(objJson);
+        } else {
+            alert("No data found");
+        }
+        },
+        error: function () {
+        alert("Không thể tải dữ liệu!");
+        },
     });
 }
 
-// Helper function to check if we have current location
-function hasCurrentLocation() {
-    return currentX !== null && currentY !== null;
-}
-
-function someLocationBasedFeature() {
-    if (!hasCurrentLocation()) {
-        alert('Please select your location first');
-        return;
-    }
-    alert('Current location: ' + currentX + ', ' + currentY);
-}
-
-function startSelectLocation() {
-    if (selectionMode === 'custom') {
-        // Deactivate if already active
-        selectionMode = null;
-        selectedLocationLayer.getSource().clear();
-        isSelectingLocation = false;
-        map.getViewport().style.cursor = 'default';
-        return;
-    }
-
-    // Clear other mode
-    if (selectionMode === 'current') {
-        currentLocationLayer.getSource().clear();
-    }
-
-    selectionMode = 'custom';
-    isSelectingLocation = true;
-    map.getViewport().style.cursor = 'crosshair';
-}
-
-function setSelectedLocation(longitude, latitude) {
+function setLocation(longitude, latitude) {
     currentX = longitude;
     currentY = latitude;
     
@@ -162,22 +108,40 @@ function setSelectedLocation(longitude, latitude) {
 
     const iconStyle = new ol.style.Style({
         image: new ol.style.Icon({
-            anchor: [0.5, 1],
-            src: '../icons/currentLocation.svg',
-            scale: 1.5
+            anchor: [0.5, 0.5],
+            src: './public/assets/icons/current.svg',
         })
     });
 
     feature.setStyle(iconStyle);
+    
+    // Update marker
+    locationLayer.getSource().clear();
+    locationLayer.getSource().addFeature(feature);
 
-    // Clear previous selection and add new one
-    selectedLocationLayer.getSource().clear();
-    selectedLocationLayer.getSource().addFeature(feature);
-
-    // Center map on selected location
+    // Center map
     map.getView().animate({
         center: ol.proj.fromLonLat(coords),
         zoom: 16,
-        // duration: 1000
+        duration: 1000
+    });
+}
+
+function startSelectLocation() {
+    locationLayer.getSource().clear();
+    isSelectingLocation = true;
+    map.getViewport().style.cursor = 'crosshair';
+}
+
+function showCurrentLocation() {
+    if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser');
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+        setLocation(position.coords.longitude, position.coords.latitude);
+    }, function() {
+        alert('Unable to get your location');
     });
 }

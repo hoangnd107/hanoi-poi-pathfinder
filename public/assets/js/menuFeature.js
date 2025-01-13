@@ -11,7 +11,7 @@ function toggleMenuFeature() {
 }
 function loadDistrictOptions() {
     $.ajax({
-        url: "http://localhost/gis/gis-exam-group-1/api/gis/district/getNameByDistrict.php",
+        url: "./api/gis/district/getNameByDistrict.php",
         type: "GET",
         success: function (data) {
             const districts = data;
