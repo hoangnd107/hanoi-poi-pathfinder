@@ -1,5 +1,5 @@
 console.log("Menu feature");
-
+let addedLayers = [];
 function toggleMenuFeature() {
     const sidebar = document.getElementById('sidebar');
     const map = document.getElementById('map');
@@ -32,37 +32,64 @@ function loadDistrictOptions() {
         }
     });
 }
+function clearAllLayers() {
+    addedLayers.forEach((layer) => {
+        map.removeLayer(layer);
+    });
+    addedLayers = [];
+}
 function drawDistrictBoundary(districtName) {
     $.ajax({
         url: './api/index.php',
         type: 'POST',
         data: { functionName: 'getGeomByDistrict', districtName },
         success: function (response) {
-            const geom = response.data[0]?.geom;
-            if (geom) {
-                const format = new ol.format.GeoJSON();
-                const feature = format.readFeature(geom, {
-                    dataProjection: 'EPSG:4326',
-                    featureProjection: 'EPSG:3857'
-                });
-                const vectorSource = new ol.source.Vector({
-                    features: [feature]
-                });
-                const vectorLayer = new ol.layer.Vector({
-                    source: vectorSource,
-                    style: new ol.style.Style({
-                        stroke: new ol.style.Stroke({
-                            color: 'red',
-                            width: 2
-                        })
-                    })
-                });
-                map.addLayer(vectorLayer);
+            try {
+                console.log(response);
+                if (response.error) {
+                    alert(response.error);
+                    return;
+                }
+                
+                const geom = response.data[0]?.geom;
+                if (geom) {
+                    const format = new ol.format.GeoJSON();
+                    const feature = format.readFeature(geom, {
+                        dataProjection: 'EPSG:4326',
+                        featureProjection: 'EPSG:3857',
+                    });
+    
+                    const vectorSource = new ol.source.Vector({
+                        features: [feature],
+                    });
+    
+                    const vectorLayer = new ol.layer.Vector({
+                        source: vectorSource,
+                        style: new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color: 'red',
+                                width: 2,
+                            }),
+                            fill: new ol.style.Fill({
+                                color: 'rgba(255, 0, 0, 0.1)',
+                            }),
+                        }),
+                    });
+    
+                    map.addLayer(vectorLayer);
+                    addedLayers.push(vectorLayer);
+                } else {
+                    alert('Không thể tải boundary của quận/huyện!');
+                }
+            } catch (error) {
+                console.error('Lỗi khi xử lý dữ liệu trả về:', error);
+                alert('Dữ liệu trả về không hợp lệ.');
             }
         },
-        error: function () {
+        error: function (xhr, status, error) {
+            console.error('Lỗi AJAX:', xhr, status, error);
             alert('Không thể tải boundary của quận/huyện!');
-        }
+        },
     });
 }
 function drawRadiusCircle(x = 105.824163, y = 21.006762, radius) {
@@ -88,25 +115,45 @@ function drawRadiusCircle(x = 105.824163, y = 21.006762, radius) {
     });
 
     map.addLayer(vectorLayer);
+    addedLayers.push(vectorLayer);
 }
-document.addEventListener('DOMContentLoaded', () => {
-    const resetButton = document.querySelector('.btn-reset');
+function handleSearch() {
+    const districtSelect = document.getElementById('select-district');
+    const radiusInput = document.getElementById('select-radius');
+
+    const selectedDistrict = districtSelect.value;
+    const radiusValue = radiusInput.value;
+
+    clearAllLayers();
+    if (selectedDistrict && radiusValue) {
+        drawDistrictBoundary(selectedDistrict);
+        drawRadiusCircle();
+    } else if (selectedDistrict) {
+        drawDistrictBoundary(selectedDistrict);
+    } else if (radiusValue) {
+        drawRadiusCircle();
+    } else {
+        alert('Vui lòng chọn Quận/Huyện hoặc nhập Bán kính hoặc cả hai!');
+    }
+}
+function handleReset() {
     const sidebar = document.querySelector('.sidebar-content');
-    if (resetButton) {
-        resetButton.addEventListener('click', () => {
-            const selects = sidebar.querySelectorAll('select');
-            selects.forEach(select => {
-                select.selectedIndex = 0;
-            });
-            const inputs = sidebar.querySelectorAll('select-radius');
-            inputs.forEach(input => {
-                input.value = '';
-            });
-            const resultText = sidebar.querySelector('result-text');
-            if (resultText) {
-                resultText.textContent = 'Kết quả tìm được: ';
-            }
-        });
-    };
+    const selects = sidebar.querySelectorAll('select');
+    selects.forEach(select => {
+        select.selectedIndex = 0;
+    });
+    const inputs = sidebar.querySelectorAll('.select-radius');
+    inputs.forEach(input => {
+        input.value = '';
+    });
+    const resultText = sidebar.querySelector('.result-text');
+    if (resultText) {
+        resultText.textContent = 'Kết quả tìm được: ';
+    }
+
+    clearAllLayers();
+    loadDistrictOptions();
+} 
+document.addEventListener('DOMContentLoaded', () => {
     loadDistrictOptions();
 });

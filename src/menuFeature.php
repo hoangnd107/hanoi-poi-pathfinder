@@ -20,10 +20,10 @@
         <select class="select-district" id="select-district">
             <option value="" disabled selected>Chọn Quận/Huyện</option>
         </select>
-        <input class="select-radius" id="select-radius" type="number" placeholder="Khoảng cách" />
+        <input class="select-radius" id="select-radius" type="number" placeholder="Khoảng cách bán kính" />
         <div class="sidebar-btns" id="sidebar-btns">
-            <button class="btn-reset" id="btn-reset">Reset</button>
-            <button class="btn-search" id="btn-search" onclick="alert('Chức năng đang phát triển')">Tìm</button>
+            <button class="btn-reset" id="btn-reset" onclick="handleReset()">Reset</button>
+            <button class="btn-search" id="btn-search" onclick="handleSearch()">Tìm</button>
         </div>
         <p class="result-text" id="result-text">Kết quả tìm được: </p>
     </div>

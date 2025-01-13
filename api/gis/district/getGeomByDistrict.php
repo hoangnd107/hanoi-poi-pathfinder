@@ -8,10 +8,16 @@
 // }
 function getGeomByDistrict() {
     $pdo = initDB();
-    $sql = "SELECT name_2, geom FROM hanoi_district WHERE name_2 = :districtName";
+    $sql = "SELECT ST_AsGeoJSON(geom) AS geom FROM hanoi_district WHERE name_2 = :districtName";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['districtName' => $_POST['districtName']]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     closeDB($pdo);
-    return $result;
+
+    if ($result) {
+        return $result;
+    } else {
+        return [];
+    }
 }
