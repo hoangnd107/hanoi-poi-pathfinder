@@ -72,7 +72,7 @@ function drawDistrictBoundary(districtName) {
                                 width: 2,
                             }),
                             fill: new ol.style.Fill({
-                                color: 'rgba(255, 0, 0, 0.1)',
+                                color: 'rgba(255, 0, 0, 0.05)',
                             }),
                         }),
                     });
@@ -93,7 +93,7 @@ function drawDistrictBoundary(districtName) {
         },
     });
 }
-function drawRadiusCircle(x = 105.824163, y = 21.006762, radius) {
+function drawRadiusCircle(x, y, radius) {
     const circleFeature = new ol.Feature({
         geometry: new ol.geom.Circle(ol.proj.fromLonLat([x, y]), radius * 1000)
     });
@@ -110,7 +110,7 @@ function drawRadiusCircle(x = 105.824163, y = 21.006762, radius) {
                 width: 2
             }),
             fill: new ol.style.Fill({
-                color: 'rgba(0, 0, 255, 0.1)'
+                color: 'rgba(0, 0, 255, 0.05)'
             })
         })
     });
@@ -128,11 +128,11 @@ function handleSearch() {
     clearAllLayers();
     if (selectedDistrict && radiusValue) {
         drawDistrictBoundary(selectedDistrict);
-        drawRadiusCircle(105.824163, 21.006762, radiusValue);
+        drawRadiusCircle(currentX, currentY, radiusValue);
     } else if (selectedDistrict) {
         drawDistrictBoundary(selectedDistrict);
     } else if (radiusValue) {
-        drawRadiusCircle(105.824163, 21.006762, radiusValue);
+        drawRadiusCircle(currentX, currentY, radiusValue);
     } else {
         alert('Vui lòng chọn Quận/Huyện hoặc nhập Bán kính hoặc cả hai!');
     }

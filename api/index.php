@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../helpers/functions.php';
 require_once __DIR__ . '/gis/roads/getGeom.php';
 require_once __DIR__ . '/gis/district/getNameByDistrict.php';
+require_once __DIR__ . '/gis/district/getGeomByDistrict.php';
 require_once __DIR__ . '/gis/radius/getGeomByRadius.php';
 require_once __DIR__ . '/gis/points/getAllPoints.php';
 
