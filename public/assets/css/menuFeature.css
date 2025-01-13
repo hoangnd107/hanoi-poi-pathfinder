@@ -11,13 +11,13 @@
     justify-content: center;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1500;
 }
 .sidebar {
     position: fixed;
     top: 0;
-    right: -300px;
-    width: 300px;
+    right: -400px;
+    width: 250px;
     height: 100%;
     background-color: #f4f4f4;
     box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);

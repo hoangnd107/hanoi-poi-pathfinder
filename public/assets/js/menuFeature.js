@@ -3,6 +3,7 @@ let addedLayers = [];
 function toggleMenuFeature() {
     const sidebar = document.getElementById('sidebar');
     const map = document.getElementById('map');
+    const btnToggle = document.getElementById('btn-toggle-sidebar');
     if (sidebar.classList.contains('open')) {
         sidebar.classList.remove('open');
         map.classList.remove('shift');
