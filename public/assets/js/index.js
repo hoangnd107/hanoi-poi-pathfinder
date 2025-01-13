@@ -79,13 +79,12 @@ function highLightGeoJsonObj(paObjJson) {
 
 function showAllPoints() {
     $.ajax({
-        url: "../../../api/index.php",
+        url: "api/index.php",
         type: "POST",
-        data: { functionname: "getAllPoints" },
+        data: { functionName: "getAllPoints" },
         success: function (result) {
         if (result !== "null") {
-            console.log(result);
-            var objJson = JSON.parse(result);
+            var objJson = JSON.parse(result.data);
             highLightGeoJsonObj(objJson);
         } else {
             alert("No data found");
