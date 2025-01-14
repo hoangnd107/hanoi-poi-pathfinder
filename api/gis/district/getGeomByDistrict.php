@@ -1,21 +1,11 @@
 <?php
-// function getGeomByDistrict() {
-//     $pdo = initDB();
-//     $sql = "SELECT geom FROM hanoi_district";
-//     $result = executeQuery($pdo, $sql);
-//     closeDB($pdo);
-//     return $result;
-// }
 function getGeomByDistrict() {
+    $districtName = $_POST['districtName'];
     $pdo = initDB();
-    $sql = "SELECT ST_AsGeoJSON(geom) AS geom FROM hanoi_district WHERE name_2 = ".$_POST['districtName'];
-    $result = executeQuery($pdo, $sql);
+    $sql = "SELECT ST_AsGeoJSON(geom) AS geom FROM hanoi_district WHERE name_2 = :districtName";
+    $result = executeQuery($pdo, $sql, ['districtName' => $districtName]);
 
     closeDB($pdo);
 
-    if ($result) {
-        return $result;
-    } else {
-        return [];
-    }
+    return $result ? $result : [];
 }

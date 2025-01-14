@@ -1,4 +1,3 @@
-console.log("Menu feature");
 let addedLayers = [];
 function toggleMenuFeature() {
     const sidebar = document.getElementById('sidebar');
@@ -51,7 +50,6 @@ function drawDistrictBoundary(districtName) {
                     alert(response.error);
                     return;
                 }
-                
                 const geom = response.data[0]?.geom;
                 if (geom) {
                     const format = new ol.format.GeoJSON();
@@ -87,10 +85,6 @@ function drawDistrictBoundary(districtName) {
                 alert('Dữ liệu trả về không hợp lệ.');
             }
         },
-        error: function (xhr, status, error) {
-            console.error('Lỗi AJAX:', xhr, status, error);
-            alert('Không thể tải boundary của quận/huyện!');
-        },
     });
 }
 function drawRadiusCircle(x, y, radius) {
@@ -114,7 +108,6 @@ function drawRadiusCircle(x, y, radius) {
             })
         })
     });
-
     map.addLayer(vectorLayer);
     addedLayers.push(vectorLayer);
 }
