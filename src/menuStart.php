@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="public/assets/css/menuStart.css">
-<script src="public/assets/js/menuStart.js"></script>
 <div class="add-location-container" id="add-location-container">
     <button class="btn-add-location" id="btn-add-location" onclick="toggleMenuStart()">+</button>
     <div class="add-location-content" id="add-location-content">

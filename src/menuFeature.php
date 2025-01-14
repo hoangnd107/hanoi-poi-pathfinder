@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="public/assets/css/menuFeature.css">
-<script src="public/assets/js/menuFeature.js"></script>
 <div class="btn-toggle-sidebar" id="btn-toggle-sidebar" onclick="toggleMenuFeature()">
     ☰
 </div>
