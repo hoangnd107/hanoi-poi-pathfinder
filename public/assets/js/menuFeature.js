@@ -150,4 +150,8 @@ function handleReset() {
 } 
 document.addEventListener('DOMContentLoaded', () => {
     loadDistrictOptions();
+    const districtSelect = document.getElementById('select-district');
+    const radiusInput = document.getElementById('select-radius');
+    districtSelect.addEventListener('change', handleSearch);
+    radiusInput.addEventListener('input', handleSearch);
 });

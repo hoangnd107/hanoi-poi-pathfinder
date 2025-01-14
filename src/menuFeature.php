@@ -23,7 +23,7 @@
         <input class="select-radius" id="select-radius" type="number" placeholder="Khoảng cách bán kính (km)" />
         <div class="sidebar-btns" id="sidebar-btns">
             <button class="btn-reset" id="btn-reset" onclick="handleReset()">Reset</button>
-            <button class="btn-search" id="btn-search" onclick="handleSearch()">Tìm</button>
+            <button class="btn-search" id="btn-search" onclick="">Tìm</button>
             <!-- <button class="btn-search" id="btn-search" onclick="showAllPoints()">Tìm</button> -->
             <!-- ! Add showAllPoints() -->
         </div>
