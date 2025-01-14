@@ -5,6 +5,8 @@ require_once __DIR__ . '/gis/district/getNameByDistrict.php';
 require_once __DIR__ . '/gis/district/getGeomByDistrict.php';
 require_once __DIR__ . '/gis/radius/getGeomByRadius.php';
 require_once __DIR__ . '/gis/points/getAllPoints.php';
+require_once __DIR__ . '/gis/points/getInfoPoint.php';
+require_once __DIR__ . '/gis/points/getGeomPoint.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['functionName'])) {
@@ -38,8 +40,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'test':
             $aResult = getGeom();
             break;
+        case 'getGeomPoint':
+            $point = $_POST['pointDestiny'];
+            $aResult = getGeomPoint($point);
+            break;
         case 'getAllPoints':
-            $aResult = getAllPoints();
+            $myPoint = $_POST['myPoint'];
+            $level1 = $_POST['level1'];
+            $level2 = $_POST['level2'];
+            $radius = $_POST['radius'];
+            $district = $_POST['district'];
+
+            $aResult = getAllPoints($myPoint, $level1, $level2, $radius, $district);
+
+            // $aResult = [
+            //     'myPoint' => $myPoint,
+            //     'level1' => $level1,
+            //     'level2' => $level2,
+            //     'radius' => $radius,
+            //     'district' => $district,
+            // ];
+            // $aResult = getAllPoints();
+            break;
+        case 'getInfoPoint':
+            $pointDestiny = $_POST['pointDestiny'];
+            $aResult = getInfoPoint($pointDestiny);
             break;
         default:
             header('HTTP/1.1 400 Bad Request');
