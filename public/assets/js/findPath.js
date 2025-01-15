@@ -9,6 +9,8 @@ function findPath() {
         return;
     }
     
+    console.log('Bắt đầu tìm đường đi');
+
     $.ajax({
         url: "api/index.php",
         type: "POST",
@@ -21,10 +23,18 @@ function findPath() {
         },
         success: function (result) {
             if (result.data !== "null") {
+                console.log('Result: ', result.data);
+                let totalLength = result.data.totalLength;
+                if (totalLength >= 1000) {
+                    totalLength = (totalLength / 1000).toFixed(2) + " km";
+                } else {
+                    totalLength = Math.round(totalLength) + " m";
+                }
+                document.getElementById('path-length').innerText = "Chiều dài đường đi: " + totalLength;
                 source = createVectorSource(result.data.route);
                 routeLayer.setSource(source);
             } else {
-                alert("No data found");
+                alert("Không tìm thấy đường đi");
             }
         },
         error: function (xhr, status, error) {

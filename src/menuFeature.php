@@ -19,9 +19,9 @@
             <option value="restaurant">Nhà hàng</option>
             <option value="fast_food">Quán ăn nhanh</option>
         </select>
-        <div>
-            <h4>Chọn tuyến đường</h4>
-            <button id='btn-show-road' onclick="showRoad()">Click</button>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <p style="margin: 0;">Tìm theo tuyến đường</p>
+            <button id='btn-show-road' onclick="showRoad()" style="padding: 10px;">Lộ trình</button>
         </div>
         <select class="select-district" id="select-district">
             <option value="" disabled selected>Chọn Quận/Huyện</option>
@@ -32,6 +32,6 @@
             <!-- <button class="btn-search" id="btn-search" onclick="handleSearch()">Tìm</button> -->
             <button class="btn-search" id="btn-search" onclick="showAllPoints()">Tìm</button>
         </div>
-        <p class="result-text" id="result-text">Kết quả tìm được: </p>
+        <!-- <p class="result-text" id="result-text"></p> -->
     </div>
 </div>

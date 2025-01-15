@@ -6,11 +6,16 @@ function showAllPoints() {
     let option = selectLv2.value;
     let district = selectDistrict.value;
     let radius = selectRadius.value;
+
+    
     if(!district && !radius) {
         alert('Chọn Quận/Huyện hoặc bán kính tìm kiếm');
-    }else if(startedLocation === false) {
-        alert('Chưa chọn vị trí trên bản đồ');
         return;
+    }else if(radius) {
+        if(startedLocation === false) {
+            alert('Chưa chọn vị trí trên bản đồ');
+            return;
+        }
     }
 
     $.ajax({

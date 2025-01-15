@@ -17,9 +17,12 @@
         <div class="info-container" id="info-container">
             <p class="info-title">Thông tin địa điểm:</p>
             <p class="info-content" id="info-content"></p>
-            <button id='btn-find-path' class="btn-find-path" onclick="findPath()">
-                Tìm đường
-            </button>
+            <div class="find-path">
+                <p id="path-length"></p>
+                <button id='btn-find-path' class="btn-find-path" onclick="findPath()">
+                    Tìm đường đi
+                </button>
+            </div>
         </div>
     </div>
     <?php include 'src/menuStart.php'; ?>

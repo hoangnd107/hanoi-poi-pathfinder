@@ -170,17 +170,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // Thêm sự kiện input cho select-radius
     selectRadius.addEventListener('input', function () {
         if (selectRadius.value) {
-            selectRadius.disabled = true;
+            // selectRadius.disabled = true;
         }
     });
     selectDistrict.addEventListener('change', function () {
         if (selectDistrict.value) {
-            selectDistrict.disabled = true;
+            // selectDistrict.disabled = true;
         }
     });
     selectOption.addEventListener('change', function () {
         if (selectOption.value) {
-            selectOption.disabled = true;
+            // selectOption.disabled = true;
         }
     });
 
