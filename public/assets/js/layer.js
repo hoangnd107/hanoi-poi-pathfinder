@@ -120,3 +120,22 @@ let routeLayer = new ol.layer.Vector({
         }),
     }),
 });
+
+// !LAYER ROADS
+let roadsLayer = new ol.layer.Image({
+    source: null
+})
+
+// !LAYER ROADS BUFFER
+let roadsBufferLayer = new ol.layer.Vector({
+    source: new ol.source.Vector(),
+    style: new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color: 'green',
+            width: 2,
+        }),
+        fill: new ol.style.Fill({
+            color: 'rgba(0, 255, 0, 0.1)',
+        }),
+    }),
+});

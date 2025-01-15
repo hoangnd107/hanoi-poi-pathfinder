@@ -19,6 +19,10 @@
             <option value="restaurant">Nhà hàng</option>
             <option value="fast_food">Quán ăn nhanh</option>
         </select>
+        <div>
+            <h4>Chọn tuyến đường</h4>
+            <button id='btn-show-road' onclick="showRoad()">Click</button>
+        </div>
         <select class="select-district" id="select-district">
             <option value="" disabled selected>Chọn Quận/Huyện</option>
         </select>

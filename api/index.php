@@ -8,6 +8,7 @@ require_once __DIR__ . '/gis/points/getAllPoints.php';
 require_once __DIR__ . '/gis/points/getInfoPoint.php';
 require_once __DIR__ . '/gis/points/getGeomPoint.php';
 require_once __DIR__ . '/gis/routes/getRoute.php';
+require_once __DIR__ . '/gis/points/getPoisByRoad.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['functionName'])) {
@@ -52,6 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case 'getRoute':
             $aResult = getRoute();
+            break;
+        case 'getPoisByRoad':
+            $aResult = getPoisByRoad();
             break;
         default:
             header('HTTP/1.1 400 Bad Request');
