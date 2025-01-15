@@ -41,30 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $aResult = getGeom();
             break;
         case 'getGeomPoint':
-            $point = $_POST['pointDestiny'];
-            $aResult = getGeomPoint($point);
+            $aResult = getGeomPoint();
             break;
         case 'getAllPoints':
-            $myPoint = $_POST['myPoint'];
-            $level1 = $_POST['level1'];
-            $level2 = $_POST['level2'];
-            $radius = $_POST['radius'];
-            $district = $_POST['district'];
-
-            $aResult = getAllPoints($myPoint, $level1, $level2, $radius, $district);
-
-            // $aResult = [
-            //     'myPoint' => $myPoint,
-            //     'level1' => $level1,
-            //     'level2' => $level2,
-            //     'radius' => $radius,
-            //     'district' => $district,
-            // ];
-            // $aResult = getAllPoints();
+            $aResult = getAllPoints();
             break;
         case 'getInfoPoint':
-            $pointDestiny = $_POST['pointDestiny'];
-            $aResult = getInfoPoint($pointDestiny);
+            $aResult = getInfoPoint();
             break;
         default:
             header('HTTP/1.1 400 Bad Request');

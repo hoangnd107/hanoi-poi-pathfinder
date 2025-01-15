@@ -138,19 +138,26 @@ function initMap() {
         let lon = coords[0];
         let lat = coords[1];
         let pointDestiny = 'POINT(' + lon + ' ' + lat + ')';
-        console.log(pointDestiny);
+        let option = document.getElementById('select-lv2').value;
+
         $.ajax({
             url: "api/index.php",
             type: "POST",
             data: { 
                 functionName: "getGeomPoint",
-                pointDestiny: pointDestiny
+                pointDestiny: pointDestiny,
+                option: option
             },
             success: function (result) {
                 console.log('Result:', result.data);
                 if (result !== "null") {
-                    var objJson = JSON.parse(result.data);
-                    highLightAllPoints(objJson);
+                    targetX = result.data.exactPoint.coordinates[0]
+                    targetY = result.data.exactPoint.coordinates[1]
+
+                    let source = createVectorSource(result.data.geoJson);
+                    document.getElementById('btn-show-details').disabled = false;
+                    targetLayer.setSource(source);
+                    poisLayer.getSource().clear();
                 } else {
                     alert("No data found");
                 }
@@ -186,78 +193,6 @@ function highLightObj(paObjJson) {
     });
 
     map.addLayer(vectorLayer);
-}
-
-function highLightAllPoints(paObjJson) {
-    var vectorSource = new ol.source.Vector({
-        features: new ol.format.GeoJSON().readFeatures(paObjJson, {
-        dataProjection: "EPSG:4326",
-        featureProjection: "EPSG:3857",
-        }),
-    });
-
-    // Áp dụng style icon cho tất cả các điểm
-    var stylePoint = new ol.style.Style({
-        image: new ol.style.Icon({
-        anchor: [0.5, 0.5],
-        anchorXUnits: "fraction",
-        anchorYUnits: "fraction",
-        src: "./public/assets/icons/general.svg",
-        }),
-    });
-
-    var vectorLayer = new ol.layer.Vector({
-        source: vectorSource,
-        style: stylePoint,
-    });
-
-    map.addLayer(vectorLayer);
-}
-
-let selectLv1 = document.getElementById('select-lv1');
-let selectLv2 = document.getElementById('select-lv2');
-let selectDistrict = document.getElementById('select-district');
-let selectRadius = document.getElementById('select-radius');
-
-function showAllPoints() {
-    let level1 = selectLv1.value;
-    let level2 = selectLv2.value;
-    let district = selectDistrict.value;
-    let radius = selectRadius.value;
-
-    if(!level1 && !level2) {
-        alert('Chọn loại điểm cần hiển thị');
-    } else {
-        if(!district && !radius) {
-            alert('Chọn Quận/Huyện hoặc bán kính tìm kiếm');
-        }
-    }
-
-    $.ajax({
-        url: "api/index.php",
-        type: "POST",
-        data: { 
-            functionName: "getAllPoints",
-            myPoint: 'POINT(' + currentX + ' ' + currentY + ')',
-            level1: level1,
-            level2: level2,
-            district: district,
-            radius: radius
-        },
-        success: function (result) {
-        if (result.data !== "null") {
-            // console.log(result.data);
-            // var objJson = JSON.parse(result.data);
-            // console.log(objJson);
-            highLightAllPoints(result.data);
-        } else {
-            alert("No data found");
-        }
-        },
-        error: function () {
-        alert("Không thể tải dữ liệu!");
-        },
-    });
 }
 
 function setLocation(longitude, latitude) {

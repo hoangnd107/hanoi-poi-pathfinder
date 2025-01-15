@@ -12,7 +12,9 @@
 </head>
 
 <body onLoad="initMap()">
-    <div class="map" id="map"></div>
+    <div class="map" id="map">
+        <button class="btn-show-details" id="btn-show-details" onclick="showDetailPoint()" disabled>Hiển thị chi tiết</button>
+    </div>
     <div class="info" id="info"></div>
     <?php include 'src/menuStart.php'; ?>
     <?php include 'src/menuFeature.php'; ?>
@@ -25,6 +27,7 @@
     <script src="public/assets/js/menuFeature.js"></script>
     <script src="public/assets/js/menuStart.js"></script>
     <script src="public/assets/js/utils.js"></script>
+    <script src="public/assets/js/showPoints.js"></script>
 </body>
 
 </html>

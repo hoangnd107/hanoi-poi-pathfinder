@@ -147,6 +147,8 @@ function handleReset() {
 
     clearAllLayers();
     loadDistrictOptions();
+
+    poisLayer.getSource().clear();
 } 
 document.addEventListener('DOMContentLoaded', () => {
     loadDistrictOptions();

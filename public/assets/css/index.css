@@ -1,4 +1,45 @@
 .map{
     width: flex;
     height: flex;
+    position: relative;
+}
+
+.btn-show-details {
+    position: absolute;
+    z-index: 1;
+    left: 50px;
+    top: 10px;
+}
+
+.info-container {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    top: 20px;
+    left: 20px;
+    max-width: 400px;
+    min-width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.info-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.info-content {
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0;
+    color: #555;
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
