@@ -144,12 +144,49 @@ function handleReset() {
     if (resultText) {
         resultText.textContent = 'Kết quả tìm được: ';
     }
+    
+    document.getElementById('info-container').style.display = 'none';
+    document.getElementById('info-content').innerText = '';
+    document.getElementById('btn-show-details').style.display = 'block';
+    document.getElementById('btn-show-details').disabled = true;
 
     clearAllLayers();
     loadDistrictOptions();
 
     poisLayer.getSource().clear();
+    targetLayer.getSource().clear();
 } 
 document.addEventListener('DOMContentLoaded', () => {
     loadDistrictOptions();
+});
+document.addEventListener('DOMContentLoaded', function () {
+    var selectRadius = document.getElementById('select-radius');
+    var btnReset = document.getElementById('btn-reset');
+    var selectDistrict = document.getElementById('select-district');
+    var selectOption = document.getElementById('select-lv2');
+
+    // Thêm sự kiện input cho select-radius
+    selectRadius.addEventListener('input', function () {
+        if (selectRadius.value) {
+            selectRadius.disabled = true;
+        }
+    });
+    selectDistrict.addEventListener('change', function () {
+        if (selectDistrict.value) {
+            selectDistrict.disabled = true;
+        }
+    });
+    selectOption.addEventListener('change', function () {
+        if (selectOption.value) {
+            selectOption.disabled = true;
+        }
+    });
+
+    // Cập nhật hàm handleReset để kích hoạt lại select-radius
+    btnReset.addEventListener('click', function () {
+        selectOption.disabled = false;
+        selectDistrict.disabled = false;
+        selectRadius.disabled = false;
+        selectRadius.value = ''; // Xóa giá trị trong input
+    });
 });

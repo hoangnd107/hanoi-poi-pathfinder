@@ -14,8 +14,11 @@
 <body onLoad="initMap()">
     <div class="map" id="map">
         <button class="btn-show-details" id="btn-show-details" onclick="showDetailPoint()" disabled>Hiển thị chi tiết</button>
+        <div class="info-container" id="info-container">
+            <p class="info-title">Thông tin địa điểm:</p>
+            <p class="info-content" id="info-content"></p>
+        </div>
     </div>
-    <div class="info" id="info"></div>
     <?php include 'src/menuStart.php'; ?>
     <?php include 'src/menuFeature.php'; ?>
     

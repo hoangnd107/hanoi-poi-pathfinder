@@ -23,6 +23,7 @@ var targetY = null;
 
 var isSelectingLocation = false;
 var locationLayer;
+var startedLocation = false;
 
 function initMap() {
     var layerBG = new ol.layer.Tile({
@@ -66,26 +67,6 @@ function initMap() {
         return geoJsonObj;
     }
 
-    function highLightObj(result){
-        var objJson = createJsonObj(result);
-        highLightGeoJsonObj(objJson);
-    }
-
-    function displayObjInfo(info, coordinate) {
-        // Tìm element để hiển thị thông tin
-        var infoDiv = document.getElementById('info');
-        if (infoDiv) {
-            // Cập nhật nội dung
-            infoDiv.innerHTML = `
-            <div style="position: absolute;z-index:1;background-color: white; padding: 10px; border: 1px solid black; top: 10px; left: 10px;"
-                <p style="font-size: 12px; line-height: 1.5; margin: 0; word-wrap: break-word;"><strong>Thông tin địa điểm:</strong></p>
-                <p style="font-size: 12px; line-height: 1.5; margin: 0; word-wrap: break-word;">${info}</p>
-            </div>
-            `;
-        } else {
-            console.warn('Info element not found!');
-        }
-    }
 
     // Map click handler
     // map.on('click', function(evt) {
@@ -139,7 +120,7 @@ function initMap() {
         let lat = coords[1];
         let pointDestiny = 'POINT(' + lon + ' ' + lat + ')';
         let option = document.getElementById('select-lv2').value;
-
+      
         $.ajax({
             url: "api/index.php",
             type: "POST",
@@ -169,31 +150,31 @@ function initMap() {
     });
 }
 
-function highLightObj(paObjJson) {
-    var vectorSource = new ol.source.Vector({
-        features: new ol.format.GeoJSON().readFeatures(paObjJson, {
-        dataProjection: "EPSG:4326",
-        featureProjection: "EPSG:3857",
-        }),
-    });
+// function highLightObj(paObjJson) {
+//     var vectorSource = new ol.source.Vector({
+//         features: new ol.format.GeoJSON().readFeatures(paObjJson, {
+//         dataProjection: "EPSG:4326",
+//         featureProjection: "EPSG:3857",
+//         }),
+//     });
 
-    // Áp dụng style icon cho tất cả các điểm
-    var stylePoint = new ol.style.Style({
-        image: new ol.style.Icon({
-        anchor: [0.5, 0.5],
-        anchorXUnits: "fraction",
-        anchorYUnits: "fraction",
-        src: "./public/assets/icons/destination.svg",
-        }),
-    });
+//     // Áp dụng style icon cho tất cả các điểm
+//     var stylePoint = new ol.style.Style({
+//         image: new ol.style.Icon({
+//         anchor: [0.5, 0.5],
+//         anchorXUnits: "fraction",
+//         anchorYUnits: "fraction",
+//         src: "./public/assets/icons/destination.svg",
+//         }),
+//     });
 
-    var vectorLayer = new ol.layer.Vector({
-        source: vectorSource,
-        style: stylePoint,
-    });
+//     var vectorLayer = new ol.layer.Vector({
+//         source: vectorSource,
+//         style: stylePoint,
+//     });
 
-    map.addLayer(vectorLayer);
-}
+//     map.addLayer(vectorLayer);
+// }
 
 function setLocation(longitude, latitude) {
     currentX = longitude;
@@ -223,6 +204,7 @@ function setLocation(longitude, latitude) {
         zoom: 16,
         duration: 1000
     });
+    startedLocation = true;
 }
 
 function startSelectLocation() {

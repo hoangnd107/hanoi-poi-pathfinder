@@ -6,9 +6,11 @@ function showAllPoints() {
     let option = selectLv2.value;
     let district = selectDistrict.value;
     let radius = selectRadius.value;
-    
     if(!district && !radius) {
         alert('Chọn Quận/Huyện hoặc bán kính tìm kiếm');
+    }else if(startedLocation === false) {
+        alert('Chưa chọn vị trí trên bản đồ');
+        return;
     }
 
     $.ajax({
@@ -27,7 +29,7 @@ function showAllPoints() {
                 source = createVectorSource(result.data);
                 poisLayer.setSource(source);
             } else {
-                alert("No data found");
+                alert("Không có kết quả nào được tìm thấy");
             }
         },
         error: function (xhr, status, error) {
@@ -49,7 +51,10 @@ function showDetailPoint() {
         },
         success: function (result) {
             if (result.data !== "null") {
-                displayObjInfo(result.data, [targetX, targetY]);
+                document.getElementById('info-container').style.display = 'block';
+                document.getElementById('info-content').innerText = result.data;
+                document.getElementById('btn-show-details').style.display = 'none';
+                // displayObjInfo(result.data, [targetX, targetY]);
             } else {
                 alert("No data found");
             }

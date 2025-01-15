@@ -12,7 +12,7 @@
         <select class="select-lv2" id="select-lv2">
             <option value="all">Tất cả</option>
             <option value="cafe">Cà Phê</option>
-            <option value="food_court">food_court</option>
+            <option value="food_court">Khu ẩm thực</option>
             <option value="bar">Quán Bar</option>
             <option value="biergarten">Quán bia</option>
             <option value="pub">Quán rượu</option>
