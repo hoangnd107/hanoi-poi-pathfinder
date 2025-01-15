@@ -25,6 +25,8 @@ var isSelectingLocation = false;
 var locationLayer;
 var startedLocation = false;
 
+var mode;
+
 function initMap() {
     var layerBG = new ol.layer.Tile({
         source: new ol.source.OSM(),
@@ -42,7 +44,7 @@ function initMap() {
 
     map = new ol.Map({
         target: "map",
-        layers: [layerBG, locationLayer, targetLayer, poisLayer, routeLayer, districtLayer, radiusLayer],
+        layers: [layerBG, roadsLayer, locationLayer, targetLayer, poisLayer, routeLayer, districtLayer, radiusLayer, roadsBufferLayer],
         view: viewMap,
     });
 
@@ -115,6 +117,20 @@ function initMap() {
     //     }
     // });
     map.on('singleclick', function(evt) {
+        if(mode === 'click-road') {
+            mode = 'do-nothing'
+            roadsLayer.setSource(null)
+            getPoisByRoad(evt.coordinate)
+            return
+        }
+
+        if(isSelectingLocation) {
+            const coords = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+            setLocation(coords[0], coords[1]);
+            isSelectingLocation = false;
+            map.getViewport().style.cursor = 'default';
+            return
+        }
         const coords = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
         let lon = coords[0];
         let lat = coords[1];

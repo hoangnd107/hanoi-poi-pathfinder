@@ -17,6 +17,9 @@
         <div class="info-container" id="info-container">
             <p class="info-title">Thông tin địa điểm:</p>
             <p class="info-content" id="info-content"></p>
+            <button id='btn-find-path' class="btn-find-path" onclick="findPath()">
+                Tìm đường
+            </button>
         </div>
     </div>
     <?php include 'src/menuStart.php'; ?>
@@ -31,6 +34,7 @@
     <script src="public/assets/js/menuStart.js"></script>
     <script src="public/assets/js/utils.js"></script>
     <script src="public/assets/js/showPoints.js"></script>
+    <script src="public/assets/js/findPath.js"></script>
 </body>
 
 </html>

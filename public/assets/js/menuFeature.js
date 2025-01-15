@@ -33,6 +33,11 @@ function loadDistrictOptions() {
     });
 }
 function clearAllLayers() {
+    poisLayer.getSource().clear();
+    roadsBufferLayer.getSource().clear();
+    targetLayer.getSource().clear();
+    routeLayer.getSource().clear();
+
     addedLayers.forEach((layer) => {
         map.removeLayer(layer);
     });
@@ -152,14 +157,11 @@ function handleReset() {
 
     clearAllLayers();
     loadDistrictOptions();
-
-    poisLayer.getSource().clear();
-    targetLayer.getSource().clear();
 } 
-document.addEventListener('DOMContentLoaded', () => {
-    loadDistrictOptions();
-});
+
 document.addEventListener('DOMContentLoaded', function () {
+    loadDistrictOptions();
+
     var selectRadius = document.getElementById('select-radius');
     var btnReset = document.getElementById('btn-reset');
     var selectDistrict = document.getElementById('select-district');
@@ -190,3 +192,56 @@ document.addEventListener('DOMContentLoaded', function () {
         selectRadius.value = ''; // Xóa giá trị trong input
     });
 });
+
+
+function showRoad() {
+    if(mode === 'click-road') {
+        roadsLayer.setSource(null)
+        mode = 'do-nothing'
+    }
+    else {
+        mode = 'click-road'
+        roadsLayer.setSource(new ol.source.ImageWMS({
+            ratio: 1,
+            url: 'http://localhost:8080/geoserver/wms',
+            params: {
+                'FORMAT': format,
+                'VERSION': '1.1.0',
+                'STYLES': '',
+                'LAYERS': 'thuchanh:hanoi_roads',
+            }
+        }));
+    }
+}
+
+function getPoisByRoad(evtCoordinate) {
+    const coords = ol.proj.transform(evtCoordinate, 'EPSG:3857', 'EPSG:4326');
+    let lon = coords[0];
+    let lat = coords[1];
+    let pointClick = 'POINT(' + lon + ' ' + lat + ')';
+
+    let option = document.getElementById('select-lv2').value;
+    $.ajax({
+        url: "api/index.php",
+        type: "POST",
+        data: { 
+            functionName: "getPoisByRoad",
+            pointClick: pointClick,
+            option: option
+        },
+        success: function (result) {
+            if (result.data !== "null") {
+                let sourcePoints = createVectorSource(result.data.points);
+                poisLayer.setSource(sourcePoints);
+
+                let sourceRoadBuffer = createVectorSource(result.data.roadBuffer);
+                roadsBufferLayer.setSource(sourceRoadBuffer);
+            } else {
+                alert("Không có kết quả nào được tìm thấy!");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log('Error: ' + status + ' ' + error);
+        },
+    });
+}
