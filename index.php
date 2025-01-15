@@ -14,6 +14,9 @@
 <body onLoad="initMap()">
     <div class="map" id="map">
         <button class="btn-show-details" id="btn-show-details" onclick="showDetailPoint()" disabled>Hiển thị chi tiết</button>
+        <button id='btn-find-path' class="btn-find-path" onclick="findPath()">
+            Tìm đường
+        </button>
     </div>
     <div class="info" id="info"></div>
     <?php include 'src/menuStart.php'; ?>
@@ -28,6 +31,7 @@
     <script src="public/assets/js/menuStart.js"></script>
     <script src="public/assets/js/utils.js"></script>
     <script src="public/assets/js/showPoints.js"></script>
+    <script src="public/assets/js/findPath.js"></script>
 </body>
 
 </html>

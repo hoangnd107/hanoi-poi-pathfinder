@@ -115,8 +115,8 @@ let routeLayer = new ol.layer.Vector({
     source: new ol.source.Vector(),
     style: new ol.style.Style({
         stroke: new ol.style.Stroke({
-            color: 'green',
-            width: 2,
+            color: 'blue',
+            width: 4,
         }),
     }),
-})
+});
