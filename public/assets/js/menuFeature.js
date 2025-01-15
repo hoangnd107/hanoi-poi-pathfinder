@@ -191,6 +191,10 @@ document.addEventListener('DOMContentLoaded', function () {
         selectRadius.disabled = false;
         selectRadius.value = ''; // Xóa giá trị trong input
     });
+    const districtSelect = document.getElementById('select-district');
+    const radiusInput = document.getElementById('select-radius');
+    districtSelect.addEventListener('change', handleSearch);
+    radiusInput.addEventListener('input', handleSearch);
 });
 
 
