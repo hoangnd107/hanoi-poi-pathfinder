@@ -2,33 +2,24 @@
 
 function getAllPoints(){
     $categories = ['bar', 'biergarten', 'cafe', 'fast_food', 'food_court', 'pub', 'restaurant'];
-    
-
     $currentX = $_POST['currentX'];
     $currentY = $_POST['currentY'];
     $option = $_POST['option'];
     $radius = $_POST['radius'];
     $district = $_POST['district'];
-    
+
     $queryOption = '';
     if($option === 'all'){
-        foreach($categories as $category){
+        foreach($categories as $category)
             $queryOption .= "fclass = '".$category."' OR ";
-        }
         $queryOption = rtrim($queryOption, ' OR ');
-    } else {
-        $queryOption = "fclass = '".$option."'";
-    }
+    } else $queryOption = "fclass = '".$option."'";
 
     $queryRegion = '';
-    if($district) {
-        $queryRegion = "d.name_2 = '".$district."'";
-    }
+    if($district) $queryRegion = "d.name_2 = '".$district."'";
     
     if ($radius) {
-        if($queryRegion != ''){
-            $queryRegion .= " AND ";
-        }
+        if($queryRegion != '') $queryRegion .= " AND ";
         $queryRegion .= "ST_Distance(ST_Transform(p.geom, 3857), ST_Transform(ST_SetSRID(ST_MakePoint(".$currentX.",".$currentY." ), 4326), 3857)) < ".$radius."000";
     }
 
@@ -42,6 +33,7 @@ function getAllPoints(){
     ";
 
     $result = executeQuery($pdo, $sql);
+
     if ($result != null) {
         $geoFeatures = [];
         foreach ($result as $item) {
@@ -59,8 +51,7 @@ function getAllPoints(){
             'type' => 'FeatureCollection',
             'features' => $geoFeatures,
         ];
-    } else {
-        return 'null';
-    }
+    } else return 'null';
+    
     closeDB($pdo);
 }

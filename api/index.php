@@ -1,9 +1,9 @@
 <?php
+
 require_once __DIR__ . '/../helpers/functions.php';
 require_once __DIR__ . '/gis/roads/getGeom.php';
 require_once __DIR__ . '/gis/district/getNameByDistrict.php';
 require_once __DIR__ . '/gis/district/getGeomByDistrict.php';
-require_once __DIR__ . '/gis/radius/getGeomByRadius.php';
 require_once __DIR__ . '/gis/points/getAllPoints.php';
 require_once __DIR__ . '/gis/points/getInfoPoint.php';
 require_once __DIR__ . '/gis/points/getGeomPoint.php';
@@ -26,21 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case 'getNameByDistrict':
             $aResult = getNameByDistrict();
-            break;
-        case 'getGeomByRadius':
-            $x = $_POST['x'] ?? null;
-            $y = $_POST['y'] ?? null;
-            $radius = $_POST['radius'] ?? null;
-            if ($x && $y && $radius) {
-                $aResult = getGeomByRadius($x, $y, $radius);
-            } else {
-                header('HTTP/1.1 400 Bad Request');
-                echo json_encode(['error' => 'Missing parameters']);
-                exit;
-            }
-            break;
-        case 'test':
-            $aResult = getGeom();
             break;
         case 'getGeomPoint':
             $aResult = getGeomPoint();

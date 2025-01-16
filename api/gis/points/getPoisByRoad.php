@@ -20,11 +20,10 @@ function getPoisByRoad() {
     
     $sql = "
         SELECT ST_AsGeoJSON(ST_Buffer(r.geom, 0.0005)) as road_buffer_geo
-        FROM hanoi_roads r
+        FROM hanoi_roads_1 r
         WHERE ST_Distance(ST_SetSRID(ST_GeomFromText('".$pointClick."'), 4326), r.geom) < 0.05
         ORDER BY ST_Distance(ST_SetSRID(ST_GeomFromText('".$pointClick."'), 4326), r.geom)
-        LIMIT 1"
-    ;
+        LIMIT 1";
 
     $bufferResult = executeQuery($pdo, $sql);
     $buffer = json_decode($bufferResult[0]['road_buffer_geo']);

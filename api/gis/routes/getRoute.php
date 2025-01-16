@@ -7,11 +7,11 @@ function getRoute() {
     $targetY = $_POST['targetY'];
 
     $pdo = initDB();
+    
     $sql = "
         SELECT ST_AsGeoJSON(geom) as geo, ST_Length(geom::geography) as length
         FROM pgr_fromAtoB('hanoi_roads', ".$currentX.", ".$currentY.", ".$targetX.", ".$targetY.")
-        ORDER BY seq
-    ";
+        ORDER BY seq";
     
     $result = executeQuery($pdo, $sql);
 
